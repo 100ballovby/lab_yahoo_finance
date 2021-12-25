@@ -94,8 +94,17 @@ def attachEvent(data: dict) -> list:
 with open('yahoo.json', 'r') as j:
     o = j.read()
     o = json.loads(o)
-    print(parseTimestamp(o))
-    print(parseValues(o))
+    data['Timestamp'] = parseTimestamp(o)
+    data['Values'] = parseValues(o)
+    data['Events'] = attachEvent(o)
+    df = pd.DataFrame(data)
+
+    # диаграмма
+    sns.set(style='darkgrid')
+    rcParams['figure.figsize'] = 20, 5
+    rcParams['fugire.subplot.bottom'] = 0.5
+
+    ax = sns.lineplot(x='Timestamp', y='Values', )
 
 
 #fetch = fetchStockData('TSLA', 'US', KEY, HOST)
