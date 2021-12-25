@@ -76,6 +76,11 @@ def parseValues(data: dict) -> list:
 
 
 def attachEvent(data: dict) -> list:
+    """
+    Defining open and close events in a list
+    :param data: json response
+    :return: list of open and close values
+    """
     eventList = []
 
     for i in range(len(data['chart']['result'][0]['timestamp'])):
