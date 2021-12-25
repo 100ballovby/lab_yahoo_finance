@@ -43,6 +43,8 @@ def fetchStockData(symbol: str, region: str, api_key: str, api_host: str) -> dic
     else:
         return None
 
+
+
 fetch = fetchStockData('TSLA', 'US', KEY, HOST)
 with open('yahoo.json', 'w') as f:
     f.write(json.dumps(fetch, indent=4))
