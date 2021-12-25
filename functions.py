@@ -61,10 +61,24 @@ def parseTimestamp(data: dict) -> list:
         calendar_time.append(dt.strftime('%d/%m/%Y'))
     return calendar_time
 
+
+def parseValues(data: dict) -> list:
+    """
+    Extracting open and close values
+    :param data: json response
+    :return: list of values
+    """
+    valuesList = []
+    valuesList.extend(data['chart']['result'][0]['indicators']['quote'][0]['open'])
+    valuesList.extend(data['chart']['result'][0]['indicators']['quote'][0]['close'])
+
+    return valuesList
+
 with open('yahoo.json', 'r') as j:
     o = j.read()
     o = json.loads(o)
     print(parseTimestamp(o))
+    print(parseValues(o))
 
 #fetch = fetchStockData('TSLA', 'US', KEY, HOST)
 #with open('yahoo.json', 'w') as f:
