@@ -74,11 +74,24 @@ def parseValues(data: dict) -> list:
 
     return valuesList
 
+
+def attachEvent(data: dict) -> list:
+    eventList = []
+
+    for i in range(len(data['chart']['result'][0]['timestamp'])):
+        eventList.append('open')
+    for i in range(len(data['chart']['result'][0]['timestamp'])):
+        eventList.append('close')
+
+    return eventList
+
+
 with open('yahoo.json', 'r') as j:
     o = j.read()
     o = json.loads(o)
     print(parseTimestamp(o))
     print(parseValues(o))
+
 
 #fetch = fetchStockData('TSLA', 'US', KEY, HOST)
 #with open('yahoo.json', 'w') as f:
