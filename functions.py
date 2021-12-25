@@ -101,10 +101,17 @@ with open('yahoo.json', 'r') as j:
 
     # диаграмма
     sns.set(style='darkgrid')
-    rcParams['figure.figsize'] = 20, 5
-    rcParams['fugire.subplot.bottom'] = 0.5
+    rcParams['figure.figsize'] = 20, 10
+    rcParams['figure.subplot.bottom'] = 0.5
 
-    ax = sns.lineplot(x='Timestamp', y='Values', )
+    ax = sns.lineplot(x='Timestamp', y='Values', hue='Events',
+                      dashes=False, markers=True, data=df, sort=False)
+    ax.set_title('Symbol' + 'TSLA')
+    plt.xticks(rotation=45,
+               horizontalalignment='right',
+               fontweight='light',
+               fontsize='xx-small')
+    plt.show()
 
 
 #fetch = fetchStockData('TSLA', 'US', KEY, HOST)
