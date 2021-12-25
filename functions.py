@@ -44,9 +44,30 @@ def fetchStockData(symbol: str, region: str, api_key: str, api_host: str) -> dic
         return None
 
 
+def parseTimestamp(data: dict) -> list:
+    """
+    API returns a lot of daata for a stock symbol. All of it's formatted
+    as a separate series of opening and closing, high and low figures of the stock
+    during each day.
+    :param data: json response
+    :return: list of dates
+    """
+    timestamp_list = []
+    timestamp_list.extend(data['chart']['result'][0]['timestamp'])
+    timestamp_list.extend(data['chart']['result'][0]['timestamp'])
+    calendar_time = []
+    for ts in timestamp_list:
+        dt = datetime.fromtimestamp(ts)
+        calendar_time.append(dt.strftime('%d/%m/%Y'))
+    return calendar_time
 
-fetch = fetchStockData('TSLA', 'US', KEY, HOST)
-with open('yahoo.json', 'w') as f:
-    f.write(json.dumps(fetch, indent=4))
+with open('yahoo.json', 'r') as j:
+    o = j.read()
+    o = json.loads(o)
+    print(parseTimestamp(o))
+
+#fetch = fetchStockData('TSLA', 'US', KEY, HOST)
+#with open('yahoo.json', 'w') as f:
+#    f.write(json.dumps(fetch, indent=4))
 
 
